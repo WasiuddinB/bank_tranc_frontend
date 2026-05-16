@@ -1,7 +1,7 @@
 'use client';
 
-import { Card, CardHeader, CardBody } from '../../src/components/ui';
-import { LoginForm } from '../../src/components/auth/LoginForm';
+import { Card, CardHeader, CardBody } from '@/components/ui';
+import { LoginForm } from '@/components/auth/LoginForm';
 
 export default function LoginPage() {
   return (

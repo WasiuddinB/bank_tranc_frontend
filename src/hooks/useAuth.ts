@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { useAuthStore } from '../store/authStore';
-import { authAPI } from '../services/api';
+import { useAuthStore } from '@/store/authStore';
+import { authAPI } from '@/services/api';
 import { AxiosError } from 'axios';
 
 export function useAuth() {

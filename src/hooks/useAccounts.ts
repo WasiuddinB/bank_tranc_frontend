@@ -13,7 +13,7 @@ export function useAccounts() {
     setError(null);
     try {
       const response = await accountAPI.getAll();
-      setAccounts(response.data.data || response.data);
+      setAccounts(response.data.accounts || response.data);
     } catch (err) {
       const axiosError = err as AxiosError<{ message?: string }>;
       setError(axiosError.response?.data?.message || 'Failed to fetch accounts');

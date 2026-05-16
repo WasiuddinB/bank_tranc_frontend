@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { loginSchema, type LoginFormData } from '../../lib/validations';
-import { useAuth } from '../../hooks/useAuth';
+import { loginSchema, type LoginFormData } from '@/lib/validations';
+import { useAuth } from '@/hooks/useAuth';
 import { Button, Input, Alert } from '../ui';
 
 export function LoginForm() {
