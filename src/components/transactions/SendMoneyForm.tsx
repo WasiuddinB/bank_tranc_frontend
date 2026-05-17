@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { v4 as uuidv4 } from 'uuid';
-import { transactionSchema, type TransactionFormData } from '@/lib/validations';
-import { useCreateTransaction, useAccounts } from '@/hooks/useAccounts';
-import { Button, Input, Select, Alert, Modal } from '@/components/ui';
-import { Account } from '@/types';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 as uuidv4 } from "uuid";
+import { transactionSchema, type TransactionFormData } from "@/lib/validations";
+import { useCreateTransaction, useAccounts } from "@/hooks/useAccounts";
+import { Button, Input, Select, Alert, Modal } from "@/components/ui";
+import { Account } from "@/types";
 
 interface SendMoneyFormProps {
   account: Account;
@@ -16,7 +16,7 @@ interface SendMoneyFormProps {
 
 export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
   const [showModal, setShowModal] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
   const { accounts } = useAccounts();
   const { create, isLoading, error } = useCreateTransaction();
 
@@ -29,7 +29,9 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
     resolver: zodResolver(transactionSchema),
   });
 
-  const recipientAccounts = accounts.filter((a) => a._id !== account._id && a.status === 'ACTIVE');
+  const recipientAccounts = accounts.filter(
+    (a) => a._id !== account._id && a.status === "ACTIVE",
+  );
 
   const onSubmit = async (data: TransactionFormData) => {
     try {
@@ -52,10 +54,7 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={() => setShowModal(true)}
-      >
+      <Button variant="primary" onClick={() => setShowModal(true)}>
         Send Money
       </Button>
 
@@ -65,13 +64,11 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
         onClose={() => setShowModal(false)}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {error && (
-            <Alert type="error" message={error} />
-          )}
+          {error && <Alert type="error" message={error} />}
 
           <Select
             label="Recipient Account"
-            {...register('toAccountId')}
+            {...register("toAccountId")}
             error={errors.toAccountId?.message}
           >
             <option value="">Select an account</option>
@@ -87,7 +84,7 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
             type="number"
             step="0.01"
             placeholder="1000"
-            {...register('amount', { valueAsNumber: true })}
+            {...register("amount", { valueAsNumber: true })}
             error={errors.amount?.message}
           />
 
@@ -99,11 +96,7 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              isLoading={isLoading}
-            >
+            <Button type="submit" variant="primary" isLoading={isLoading}>
               Send Money
             </Button>
           </div>
@@ -114,7 +107,7 @@ export function SendMoneyForm({ account, onSuccess }: SendMoneyFormProps) {
         <Alert
           type="success"
           message={successMessage}
-          onClose={() => setSuccessMessage('')}
+          onClose={() => setSuccessMessage("")}
         />
       )}
     </>

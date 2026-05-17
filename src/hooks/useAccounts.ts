@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
-import { AxiosError } from 'axios';
-import { Account, AccountBalance, Transaction } from '@/types';
-import { accountAPI, transactionAPI } from '@/services/api';
+import { useState, useEffect, useCallback } from "react";
+import { AxiosError } from "axios";
+import { Account, AccountBalance, Transaction } from "@/types";
+import { accountAPI, transactionAPI } from "@/services/api";
 
 export function useAccounts() {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -13,10 +13,13 @@ export function useAccounts() {
     setError(null);
     try {
       const response = await accountAPI.getAll();
+      console.log("account api response", response);
       setAccounts(response.data.accounts || response.data);
     } catch (err) {
       const axiosError = err as AxiosError<{ message?: string }>;
-      setError(axiosError.response?.data?.message || 'Failed to fetch accounts');
+      setError(
+        axiosError.response?.data?.message || "Failed to fetch accounts",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +50,7 @@ export function useAccountBalance(accountId: string | null) {
       setBalance(response.data.balance);
     } catch (err) {
       const axiosError = err as AxiosError<{ message?: string }>;
-      setError(axiosError.response?.data?.message || 'Failed to fetch balance');
+      setError(axiosError.response?.data?.message || "Failed to fetch balance");
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +75,8 @@ export function useCreateAccount() {
       return response.data.account;
     } catch (err) {
       const axiosError = err as AxiosError<{ message?: string }>;
-      const message = axiosError.response?.data?.message || 'Failed to create account';
+      const message =
+        axiosError.response?.data?.message || "Failed to create account";
       setError(message);
       throw err;
     } finally {
@@ -101,14 +105,15 @@ export function useCreateTransaction() {
         return response.data.transaction;
       } catch (err) {
         const axiosError = err as AxiosError<{ message?: string }>;
-        const message = axiosError.response?.data?.message || 'Transaction failed';
+        const message =
+          axiosError.response?.data?.message || "Transaction failed";
         setError(message);
         throw err;
       } finally {
         setIsLoading(false);
       }
     },
-    []
+    [],
   );
 
   return { create, isLoading, error };
