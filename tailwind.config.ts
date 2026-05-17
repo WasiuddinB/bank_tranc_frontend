@@ -1,0 +1,157 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  theme: {
+    extend: {
+      colors: {
+        // Primary: Modern blue-purple gradient inspired by Stripe/Wise
+        primary: {
+          50: "#f0f4ff",
+          100: "#e0e9fe",
+          200: "#c7d5fc",
+          300: "#a8b8f8",
+          400: "#7c8ef4",
+          500: "#5b6eef",
+          600: "#4f5dd9",
+          700: "#3d4ab5",
+          800: "#2d3584",
+          900: "#1f2454",
+        },
+        // Secondary: Vibrant emerald for positive actions
+        secondary: {
+          50: "#f0fdf4",
+          100: "#dcfce7",
+          200: "#bbf7d0",
+          300: "#86efac",
+          400: "#4ade80",
+          500: "#22c55e",
+          600: "#16a34a",
+          700: "#15803d",
+          800: "#166534",
+          900: "#14532d",
+        },
+        // Neutral: Modern grays
+        neutral: {
+          50: "#fafafa",
+          100: "#f5f5f5",
+          150: "#efefef",
+          200: "#e5e5e5",
+          300: "#d4d4d4",
+          400: "#a3a3a3",
+          500: "#737373",
+          600: "#525252",
+          700: "#404040",
+          800: "#262626",
+          900: "#171717",
+        },
+        // Status colors
+        success: "#22c55e",
+        warning: "#f59e0b",
+        error: "#ef4444",
+        info: "#3b82f6",
+      },
+      backgroundColor: {
+        glass: "rgba(255, 255, 255, 0.7)",
+        "glass-dark": "rgba(17, 24, 39, 0.7)",
+      },
+      backdropBlur: {
+        glass: "10px",
+      },
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.25rem", { lineHeight: "1.75rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "3xl": ["1.875rem", { lineHeight: "2.25rem" }],
+        "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
+        "5xl": ["3rem", { lineHeight: "3.5rem" }],
+      },
+      fontFamily: {
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
+      spacing: {
+        0: "0px",
+        0.5: "2px",
+        1: "4px",
+        1.5: "6px",
+        2: "8px",
+        2.5: "10px",
+        3: "12px",
+        3.5: "14px",
+        4: "16px",
+        5: "20px",
+        6: "24px",
+        7: "28px",
+        8: "32px",
+        9: "36px",
+        10: "40px",
+        12: "48px",
+        14: "56px",
+        16: "64px",
+        20: "80px",
+        24: "96px",
+        28: "112px",
+        32: "128px",
+      },
+      borderRadius: {
+        none: "0px",
+        xs: "4px",
+        sm: "6px",
+        md: "8px",
+        lg: "12px",
+        xl: "16px",
+        "2xl": "20px",
+        "3xl": "24px",
+        full: "9999px",
+      },
+      boxShadow: {
+        xs: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        sm: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+        md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)",
+        card: "0 2px 8px rgba(0, 0, 0, 0.08)",
+        "card-hover": "0 8px 24px rgba(0, 0, 0, 0.12)",
+        glass: "0 8px 32px rgba(0, 0, 0, 0.1)",
+      },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+        "pulse-soft": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "fade-in": "fadeIn 0.3s ease-in",
+        "slide-up": "slideUp 0.3s ease-out",
+        "scale-in": "scaleIn 0.3s ease-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        slideUp: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        scaleIn: {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+      opacity: {
+        2: "0.02",
+        7: "0.07",
+        15: "0.15",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;

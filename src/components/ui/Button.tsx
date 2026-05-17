@@ -1,64 +1,71 @@
-import React from 'react';
+import React from "react";
+import { LoaderCircle } from "lucide-react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?:
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "outline"
+    | "ghost"
+    | "success";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   isLoading?: boolean;
+  fullWidth?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 }
 
 export function Button({
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   isLoading = false,
+  fullWidth = false,
   disabled,
   className,
   children,
+  icon,
+  iconPosition = "left",
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-colors duration-200 flex items-center justify-center gap-2';
+  const baseStyles =
+    "inline-flex items-center justify-center font-medium rounded-lg transition-smooth focus-ring disabled:opacity-50 disabled:cursor-not-allowed gap-2";
 
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400',
-    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 disabled:bg-gray-100',
-    danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-400',
-    outline: 'border-2 border-gray-300 text-gray-900 hover:bg-gray-100 disabled:border-gray-200',
+    primary:
+      "bg-blue-600 text-white hover:bg-blue-700 dark:hover:bg-blue-500 shadow-md hover:shadow-lg active:shadow-sm",
+    secondary:
+      "bg-neutral-200 text-neutral-900 hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600",
+    danger:
+      "bg-red-600 text-white hover:bg-red-700 dark:hover:bg-red-600 shadow-md hover:shadow-lg active:shadow-sm",
+    success:
+      "bg-green-600 text-white hover:bg-green-700 dark:hover:bg-green-500 shadow-md hover:shadow-lg active:shadow-sm",
+    outline:
+      "border-2 border-neutral-300 dark:border-neutral-600 text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800",
+    ghost:
+      "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800",
   };
 
   const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
+    xs: "px-2 py-1 text-xs",
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2 text-base",
+    lg: "px-6 py-3 text-lg",
+    xl: "px-8 py-4 text-lg",
   };
+
+  const widthClass = fullWidth ? "w-full" : "";
 
   return (
     <button
       {...props}
       disabled={disabled || isLoading}
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className || ''}`}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${widthClass} ${className || ""}`}
     >
-      {isLoading && (
-        <svg
-          className="w-4 h-4 animate-spin"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      )}
+      {isLoading && <LoaderCircle className="w-4 h-4 animate-spin" />}
+      {icon && iconPosition === "left" && !isLoading && icon}
       {children}
+      {icon && iconPosition === "right" && !isLoading && icon}
     </button>
   );
 }

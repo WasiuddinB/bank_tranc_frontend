@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { loginSchema, type LoginFormData } from '@/lib/validations';
-import { useAuth } from '@/hooks/useAuth';
-import { Button, Input, Alert } from '../ui';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { loginSchema, type LoginFormData } from "@/lib/validations";
+import { useAuth } from "@/hooks/useAuth";
+import { Button, Input, Alert } from "../ui";
+import { Mail, Lock } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
@@ -22,23 +23,22 @@ export function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await login(data.email, data.password);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (err) {
       // Error is handled by auth store
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {error && (
-        <Alert type="error" message={error} />
-      )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      {error && <Alert type="error" message={error} />}
 
       <Input
-        label="Email"
+        label="Email Address"
         type="email"
         placeholder="you@example.com"
-        {...register('email')}
+        icon={<Mail className="w-4 h-4" />}
+        {...register("email")}
         error={errors.email?.message}
       />
 
@@ -46,7 +46,8 @@ export function LoginForm() {
         label="Password"
         type="password"
         placeholder="••••••••"
-        {...register('password')}
+        icon={<Lock className="w-4 h-4" />}
+        {...register("password")}
         error={errors.password?.message}
       />
 
@@ -55,14 +56,23 @@ export function LoginForm() {
         variant="primary"
         size="lg"
         isLoading={isLoading}
-        className="w-full"
+        fullWidth
       >
         Sign In
       </Button>
 
-      <p className="text-center text-gray-600 text-sm">
-        Don't have an account?{' '}
-        <Link href="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+      <div className="flex items-center gap-2">
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800" />
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">or</p>
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800" />
+      </div>
+
+      <p className="text-center text-neutral-600 dark:text-neutral-400 text-sm">
+        Don't have an account?{" "}
+        <Link
+          href="/register"
+          className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-smooth"
+        >
           Sign up
         </Link>
       </p>

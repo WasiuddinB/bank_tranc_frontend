@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { registerSchema, type RegisterFormData } from '@/lib/validations';
-import { useAuth } from '@/hooks/useAuth';
-import { Button, Input, Alert } from '@/components/ui';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { registerSchema, type RegisterFormData } from "@/lib/validations";
+import { useAuth } from "@/hooks/useAuth";
+import { Button, Input, Alert } from "@/components/ui";
+import { User, Mail, Lock } from "lucide-react";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -22,31 +23,31 @@ export function RegisterForm() {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await authRegister(data.email, data.name, data.password);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (err) {
       // Error is handled by auth store
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {error && (
-        <Alert type="error" message={error} />
-      )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      {error && <Alert type="error" message={error} />}
 
       <Input
         label="Full Name"
         type="text"
         placeholder="John Doe"
-        {...register('name')}
+        icon={<User className="w-4 h-4" />}
+        {...register("name")}
         error={errors.name?.message}
       />
 
       <Input
-        label="Email"
+        label="Email Address"
         type="email"
         placeholder="you@example.com"
-        {...register('email')}
+        icon={<Mail className="w-4 h-4" />}
+        {...register("email")}
         error={errors.email?.message}
       />
 
@@ -54,7 +55,8 @@ export function RegisterForm() {
         label="Password"
         type="password"
         placeholder="••••••••"
-        {...register('password')}
+        icon={<Lock className="w-4 h-4" />}
+        {...register("password")}
         error={errors.password?.message}
       />
 
@@ -62,7 +64,8 @@ export function RegisterForm() {
         label="Confirm Password"
         type="password"
         placeholder="••••••••"
-        {...register('confirmPassword')}
+        icon={<Lock className="w-4 h-4" />}
+        {...register("confirmPassword")}
         error={errors.confirmPassword?.message}
       />
 
@@ -71,14 +74,23 @@ export function RegisterForm() {
         variant="primary"
         size="lg"
         isLoading={isLoading}
-        className="w-full"
+        fullWidth
       >
         Create Account
       </Button>
 
-      <p className="text-center text-gray-600 text-sm">
-        Already have an account?{' '}
-        <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+      <div className="flex items-center gap-2">
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800" />
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">or</p>
+        <div className="flex-1 h-px bg-neutral-200 dark:bg-neutral-800" />
+      </div>
+
+      <p className="text-center text-neutral-600 dark:text-neutral-400 text-sm">
+        Already have an account?{" "}
+        <Link
+          href="/login"
+          className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-smooth"
+        >
           Sign in
         </Link>
       </p>
